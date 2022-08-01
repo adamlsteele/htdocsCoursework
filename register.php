@@ -31,6 +31,15 @@ if(isset($_SESSION['accountType'])) {
                         <input class="form-control mb-4" id="confirmPassword" type="password" name="confirmPassword" maxlength=32 required />
                         <label class="form-label" for="confirmPassword">Confirm Password</label>
                     </div>
+                    <p>Select account type</p>
+                    <div class="custom-control custom-radio">
+                        <input value="Student" type="radio" class="custom-control-input" id="studentType" name="accountType" required>
+                        <label class="custom-control-label" for="studentType">Student</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input value="Teacher" type="radio" class="custom-control-input mb-4" id="teacherType" name="accountType">
+                        <label class="custom-control-label" for="teacherType">Teacher</label>
+                    </div>
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
                 </form>
                                     
