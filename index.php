@@ -37,7 +37,7 @@ if(isset($_SESSION['accountType'])) {
                 <!-- Student Sign In Form -->
                 <div class="tab-content" id="accTypeContent">
                     <div class="tab-pane fade show active justify-content-center" id="type-student" role="tab-panel">
-                        <form action="/actions/auth.php?type=student" method="post">
+                        <form action="actions/auth.php?type=student" method="post">
                             <h5 class="mt-4">Student</h5>
                             <div class="form-outline mb-4">
                                 <input class="form-control" id="email" maxlength=64 required type="email" name="email"/>
@@ -53,7 +53,7 @@ if(isset($_SESSION['accountType'])) {
 
                     <!-- Teacher Sign In Form -->
                     <div class="tab-pane fade" id="type-teacher" role="tab-panel">
-                        <form action="/actions/auth.php?type=teacher" method="post">
+                        <form action="actions/auth.php?type=teacher" method="post">
                             <h5 class="mt-4">Teacher</h5>
                             <div class="form-outline mb-4">
                                 <input class="form-control" id="email" maxlength=64 required type="email" name="email"/>
@@ -69,7 +69,7 @@ if(isset($_SESSION['accountType'])) {
                 </div>
 
                 <!-- Sign In Link -->
-                <p>Need an account? Click  <a href="/signup.php">here</a>.</p>
+                <p>Need an account? Click  <a href="/register.php">here</a>.</p>
 
             </div>
         </div>

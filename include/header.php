@@ -23,7 +23,7 @@ require "include/connection.php";
         <div class="d-flex align-items-center">
             <?php
             //If the page is the root (homepage) do not display these navigation buttons
-            if(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) != "/") {
+            if(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) != "/" && parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) != "/register.php") {
                 echo '
                 <a href="" class="btn btn-primary m-1">Home</a>
                 <a href="" class="btn btn-primary m-1">Profile</a>
