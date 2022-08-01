@@ -16,7 +16,7 @@ $connection = new Connection;
 
 //Check for type of account
 if($accountType === "student") {
-    $dbResult = $connection->executeQuery("SELECT * FROM student WHERE Email = ?", "s", $email);
+    $dbResult = $connection->executeQuery("SELECT * FROM student WHERE Email = ?", "s", [$email]);
     //Check if an account with the entered email exists
     if($dbResult->num_rows != 0) {
         //Validate password
