@@ -19,7 +19,7 @@ class Connection {
 
     //Peforms GET queries returning the statement result
     //Arguements include the statement query, prepared statement variable types and values
-    public function executeQuery($query, $paramTypes, $paramValues) {
+    public function executeQuery($query, $paramTypes, array $paramValues) {
         $preparedStatement = $this->connection->prepare($query);
         $preparedStatement->bind_param($paramTypes, $paramValues);
         $preparedStatement->execute();
