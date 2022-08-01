@@ -14,6 +14,14 @@ if(isset($_SESSION['accountType'])) {
             <div class="card-body">
                 <h3 class="text-center">Cloud Coding</h3>
                 <h5 class="text-center mb-4">Registration</h5>
+
+                <?php
+                //Show error if authentication failed
+                if(isset($_GET['error'])) {
+                    echo '<div class="alert alert-danger mt-4">'.$_GET['error'].'</div>';
+                }
+                ?>
+
                 <form action="actions/register.php" method="POST">
                     <div class="form-outline">
                         <input class="form-control mb-4" id="username" type="text" name="username" maxlength=64 required />
@@ -37,7 +45,7 @@ if(isset($_SESSION['accountType'])) {
                         <label class="custom-control-label" for="studentType">Student</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input value="Teacher" type="radio" class="custom-control-input mb-4" id="teacherType" name="accountType">
+                        <input value="Teacher" type="radio" class="custom-control-input mb-4" id="teacherType" name="accountType" required>
                         <label class="custom-control-label" for="teacherType">Teacher</label>
                     </div>
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
