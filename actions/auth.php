@@ -14,13 +14,34 @@ if($_SERVER['REQUEST_METHOD'] != "POST") {
 //Create a connection object to perform queries to database
 $connection = new Connection;
 
+$dbResult = $connection->getUserByEmail($email, $accountType);
+if($dbResult->num_rows != 0) {
+    //Validate password
+    $account = $dbResult->fetch_assoc();
+    if(password_verify($password, $account['Password'])) {
+        //Setup session variables
+        $_SESSION['accountType'] = $accountType;
+        switch($accountType) {
+            case("student"):
+                $_SESSION['accountID'] = $account['StudentID'];
+            case("teacher"):
+                $_SESSION['accountID'] = $account['TeacherID'];
+        }
+        header("Location: /");
+    }else {
+        header("Location: /?error=Invalid details");
+    }
+}else {
+    header("Location: /?error=Account does not exist");
+}
+
 //Check for type of account
 if($accountType === "student") {
-    $dbResult = $connection->executeQuery("SELECT * FROM student WHERE Email = ?", "s", [$email]);
+    $dbResult = $connection->getUserByEmail($email, "student");
     //Check if an account with the entered email exists
     if($dbResult->num_rows != 0) {
         //Validate password
-        $account = $dbResult->get_result()->fetch_assoc();
+        $account = $dbResult->fetch_assoc();
         if(password_verify($password, $account['Password'])) {
             //Authentication valid
             //Setup session variables

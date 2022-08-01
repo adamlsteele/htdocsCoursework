@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] != "POST") {
 
 //Validation for entered passwords
 if($password != $confirmPassword) {
-    header("Location: /register.php?error=Passwords entered do not match!");
+    header("Location: /register.php?error=Passwords entered do not match");
 }
 
 //Check to see if an account already exists
@@ -23,9 +23,20 @@ $connection = new Connection;
 
 //Because the radio button values are Student, Teacher (the same names of the databases)
 //it is simple to use concatenation so that one query can handle both types of accounts
-$dbResult = $connection->executeQuery("SELECT * FROM ".$accountType." WHERE Email = ?", "s", [$email]);
+$dbResult = $connection->getUserByEmail($email, $accountType);
 
 if($dbResult->num_rows === 0) {
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    $connection->executeQuery("INSERT INTO ".$accountType."(Email, Username, Password) VALUES(?, ?, ?)", "sss", [$email, $username, $hashedPassword]);
+    $dbResult = $connection->createAccount($email, $username, $password, $accountType);
+    $account = $dbResult->fetch_assoc();
+    //Setup session variables
+    $_SESSION['accountType'] = $accountType;
+    switch($accountType) {
+        case("student"):
+            $_SESSION['accountID'] = $account['StudentID'];
+        case("teacher"):
+            $_SESSION['accountID'] = $account['TeacherID'];
+    }
+    header("Location: /");
+}else {
+    header("Location: /register.php?error=An account with that email already exists");
 }
