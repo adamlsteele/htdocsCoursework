@@ -26,18 +26,13 @@ class Connection {
 
     //Get account details from id
     public function getUserByID(int $id, $accountType) {
-        switch($accountType) {
-            case("student"):
-                $this->query = "SELECT * FROM ".$accountType." WHERE StudentID = ?";
-            case("teacher"):
-                $this->query = "SELECT * FROM ".$accountType." WHERE TeacherID = ?";
+        if($accountType == "student") {
+            $this->query = "SELECT * FROM student WHERE StudentID = ".$id;
+        }else {
+            $this->query = "SELECT * FROM teacher WHERE TeacherID = ".$id;
         }
 
-        $preparedStatement = $this->connection->prepare($this->query);
-        $preparedStatement->bind_param("s", $email);
-
-        $preparedStatement->execute();
-        return $preparedStatement;
+        return $this->connection->query($this->query);
     }
 
     //Create an account of certain type for a user and then return the account details
