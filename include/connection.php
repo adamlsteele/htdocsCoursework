@@ -20,8 +20,8 @@ class Connection {
 
     //Get account details from email
     public function getUserByEmail(string $email, $accountType) {
-        $query = "SELECT * FROM ".$accountType." WHERE Email = '".$email."'";
-        return $this->connection->query($query);
+        $this->query = "SELECT * FROM ".$accountType." WHERE Email = '".$email."'";
+        return $this->connection->query($this->query);
     }
 
     //Get account details from id
@@ -35,6 +35,12 @@ class Connection {
         return $this->connection->query($this->query);
     }
 
+    //Get class details from id
+    public function getClassByID(int $id) {
+        $this->query = "SELECT * FROM class WHERE ClassID = ".$id;
+        return $this->connection->query($this->query);
+    }
+
     //Create an account of certain type for a user and then return the account details
     public function createAccount($email, $username, $password, $accountType) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -44,6 +50,12 @@ class Connection {
 
         //Return the created account details via a GET statement
         return $this->getUserByEmail($email, $accountType);
+    }
+
+    public function getAssignmentsByClassID($id) {
+        $this->query = "SELECT 'Date', 'topic.Topic Name' FROM assignment INNER JOIN topic on assignment.TopicID = topic.TopicID WHERE ClassID = ".$id." AND Date > CURRENT_DATE()";
+        echo $this->query;
+        return $this->connection->query($this->query);
     }
 }
 
