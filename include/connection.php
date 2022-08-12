@@ -54,6 +54,22 @@ class Connection {
 
     public function getAssignmentsByClassID($id) {
         $this->query = "SELECT 'Date', 'topic.Topic Name' FROM assignment INNER JOIN topic on assignment.TopicID = topic.TopicID WHERE ClassID = ".$id." AND Date > CURRENT_DATE()";
+        //echo $this->query;
+        return $this->connection->query($this->query);
+    }
+
+    public function getClassesByTeacherID($id) {
+        $this->query = "SELECT * FROM Class WHERE TeacherID = ".$id;
+        return $this->connection->query($this->query);
+    }
+
+    public function getClassByName($name) {
+        $this->query = "SELECT * FROM Class WHERE 'Class Name' = '".$name."'";
+        return $this->connection->query($this->query);
+    }
+
+    public function createClass($id, $name, $description, $colour, $code) {
+        $this->query = "INSERT INTO Class('TeacherID', 'Class Name', 'Class Description', 'Class Code', 'Class Colour') VALUES(".$id.", '".$name."', '".$description."', '".$colour."', '".$code."')";
         echo $this->query;
         return $this->connection->query($this->query);
     }
