@@ -41,11 +41,11 @@ if(isset($_SESSION['accountType'])) {
                     </div>
                     <p>Select account type</p>
                     <div class="custom-control custom-radio">
-                        <input value="Student" type="radio" class="custom-control-input" id="studentType" name="accountType" required>
+                        <input value="student" type="radio" class="custom-control-input" id="studentType" name="accountType" required>
                         <label class="custom-control-label" for="studentType">Student</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input value="Teacher" type="radio" class="custom-control-input mb-4" id="teacherType" name="accountType" required>
+                        <input value="teacher" type="radio" class="custom-control-input mb-4" id="teacherType" name="accountType" required>
                         <label class="custom-control-label" for="teacherType">Teacher</label>
                     </div>
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
