@@ -69,8 +69,13 @@ class Connection {
     }
 
     public function createClass($id, $name, $description, $colour, $code) {
-        $this->query = "INSERT INTO Class('TeacherID', 'Class Name', 'Class Description', 'Class Code', 'Class Colour') VALUES(".$id.", '".$name."', '".$description."', '".$colour."', '".$code."')";
+        $this->query = "INSERT INTO class(TeacherID, ClassName, ClassDescription, ClassCode, ClassColour) VALUES(".$id.", '".$name."', '".$description."', '".$code."', '".$colour."')";
         echo $this->query;
+        return $this->connection->query($this->query);
+    }
+
+    public function getTopics() {
+        $this->query = "SELECT * FROM Topic";
         return $this->connection->query($this->query);
     }
 }
