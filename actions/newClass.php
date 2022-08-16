@@ -26,5 +26,5 @@ echo $randomCode;
 $connection = new Connection;
 
 $dbResult = $connection->createClass($id, $className, $classDescription, $classColour, $randomCode);
-echo $dbResult->error_get_last;
+header("Location: /")
 ?>

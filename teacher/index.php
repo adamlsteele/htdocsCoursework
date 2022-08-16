@@ -15,6 +15,9 @@ $username = $userDetails['Username'];
 
 //Grab classes that a teacher is in
 $classes = $connection->getClassesByTeacherID($_SESSION['accountID']);
+
+//Grab all possible topics that can be completed as assignments
+$topics = $connection->getTopics();
 ?>
 
 <div class="m-1 row justify-content-center">
@@ -23,23 +26,23 @@ $classes = $connection->getClassesByTeacherID($_SESSION['accountID']);
             <!-- Welcome message -->
             <h3>Hello, <?php echo $username; ?></h3>
             <h5>Teacher Dashboard</h5>
-            <p>Access assignments, view progress and start your own revision sessions here.</p>
+            <p>Manage your classes here.</p>
         </div>
         <div class="p-4 m-2">
             <h5>Your Classes</h5>
             <btn class="btn btn-small btn-primary mb-4" data-mdb-toggle="modal" data-mdb-target="#newClass">New Class</btn>
-            <a class="btn btn-small btn-primary mb-4">New Assignment</a>
+            <a class="btn btn-small btn-primary mb-4" data-mdb-toggle="modal" data-mdb-target="#newAssignment">New Assignment</a>
             <div class="row row-cols-1 row-cols-md-3">
                 <?php
                 if($classes->num_rows === 0) {
                     echo '<p class="alert alert-warning">Click new class to create and manage a new class.</p>';
                 }else{
                     foreach($classes as $class) {
-                        echo '<div class="col h-100 card p-4 m-2 border border-'.$class['Class Colour'].'" style="max-width: 18rem;">';
-                        echo '<h3>'.$class['Class Name'].'</h3>';
-                        echo '<p>'.$class['Class Description'].'</p>';
-                        echo '<p><strong class="badge badge-'.$class['Class Colour'].'">'.$class['Class Code'].'</strong></p>';
-                        echo '<a class="btn btn-'.$class['Class Colour'].'">Manage Class</a>';
+                        echo '<div class="col h-100 card p-4 m-2 border border-'.$class['ClassColour'].'" style="max-width: 18rem;">';
+                        echo '<h3>'.$class['ClassName'].'</h3>';
+                        echo '<p>'.$class['ClassDescription'].'</p>';
+                        echo '<p><strong class="badge badge-'.$class['ClassColour'].'">'.$class['ClassCode'].'</strong></p>';
+                        echo '<a class="btn btn-'.$class['ClassColour'].'">Manage Class</a></div>';
                     }
                 }
                 ?>
@@ -47,6 +50,50 @@ $classes = $connection->getClassesByTeacherID($_SESSION['accountID']);
         </div>
     </div>
 </div>
+
+<!--Modal form for creating a new class -->
+<div class="modal fade" id="newAssignment" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>New Assignment</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="newAssignment" action="/actions/newAssignment.php" method="post">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="class" >Select Class</label>
+                        <select id="class" name="class" class="form-select">
+                            <?php
+                            foreach($classes as $class) {
+                                echo '<option value="'.$class['ClassID'].'">'.$class['ClassName'].'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="class" >Select Topic</label>
+                        <select id="topicList" class="form-control" name="topic">
+                        
+                            <?php
+                            foreach($topics as $topic) {
+                                echo '<option value="'.$topic['TopicID'].'">'.$topic['TopicName'].'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-outline mb-4 datepicker date" data-provide="datepicker">
+                        <label class="form-label" for="date" >Select Due Date</label>
+                        <input type="date" class="form-control" name="dueDate" id="date" placeholder="YYYY/MM/DD">
+                    </div>
+
+                    <button class="btn btn-primary btn-lg btn-block mt-4" type="submit">New assignment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+        
 
 <!--Modal form for creating a new class -->
 <div class="modal fade" id="newClass" tabindex="-1">
