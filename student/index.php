@@ -27,6 +27,12 @@ $questionsCorrect = $userDetails['Questions Correct'];
 
 //Work out total percentage accuracy to 2 decimal places so that it is easy to read
 $totalQuestionsAccuracy = number_format(($questionsCorrect/$questionsAnswered)*100, 2);
+if($totalQuestionsAccuracy.is_nan) {
+    $totalQuestionsAccuracy = 0;
+}
+
+//Fetch recent topics completed
+$recentTopics = $connection->getRecentTopics($_SESSION['accountID']);
 
 ?>
 
@@ -45,14 +51,21 @@ $totalQuestionsAccuracy = number_format(($questionsCorrect/$questionsAnswered)*1
             if($classDetails === -1) {
                 echo '<p class="alert alert-warning"><strong>You are not currently in a class.</strong></br>Join a class to recieve and complete assignments set by your teacher. Ask them for a class code and enter this in the <a class="alert-link" href="/student/profile">profile</a> page.</p>';
             }else {
-                echo '<table class="table"><thead><tr><th scope="col">Class Name</th><th scope="col">Class Description</th></tr></thead><tbody><tr><td>'.$classDetails['Class Name'].'</td><td>'.$classDetails['Class Description'].'</td></tr></tbody></table>';
-                echo '<h5 class="mt-2">Assignments</h5><table class="table"><thead><tr><th scope="col">Date Due</th><th scope="col">Topic</th><th scope="col">Percentage</th></tr></thead><tbody>';
+                echo '<table class="table"><thead><tr><th scope="col">Class Name</th><th scope="col">Class Description</th></tr></thead><tbody><tr><td>'.$classDetails['ClassName'].'</td><td>'.$classDetails['ClassDescription'].'</td></tr></tbody></table>';
+                echo '<h5 class="mt-2">Due Assignments</h5><table class="table"><thead><tr><th scope="col">Date Due</th><th scope="col">Topic</th><th scope="col">Percentage</th></tr></thead><tbody>';
                 foreach($assignmentDetails as $assignment) {
                     echo '<tr><td>';
                     echo $assignment['Date'];
                     echo '</td><td>';
-                    echo $assignment['topic.Topic Name'];
+                    echo $assignment['TopicName'];
                     echo '</td>';
+                    $result = $connection->getAssignmentResult($assignment['AssignmentID'], $_SESSION['accountID'])->fetch_assoc();
+                    if($result === null) {
+                        echo '<td><p class="badge badge-danger">Not attempted</p></td>';
+                    }else {
+                        $percentage = number_format((($result['QuestionsCorrect']/$result['QuestionsAnswered'])*100), 2);
+                        echo '<td><p class="badge badge-primary">'.$percentage.'%</p></td>';
+                    }
                 }
                 echo '</tbody></table>';
             }
@@ -87,21 +100,33 @@ $totalQuestionsAccuracy = number_format(($questionsCorrect/$questionsAnswered)*1
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>12/07/2020</td>
-                        <td>Arrays</td>
-                        <td>62.34%</td>
-                    </tr>
-                    <tr>
-                        <td>12/07/2020</td>
-                        <td>Arrays</td>
-                        <td>62.34%</td>
-                    </tr>
-                    <tr>
-                        <td>12/07/2020</td>
-                        <td>Arrays</td>
-                        <td>62.34%</td>
-                    </tr>
+                    <?php
+                    //Calculate the strongest and weakest topics and display all this data in a table
+                    $max = -1;
+                    $strongestTopic = "No data";
+                    $min = 101;
+                    $weakestTopic = "No data";
+                    foreach($recentTopics as $topic) {
+                        echo '<tr><td>';
+                        echo $topic['DateCompleted'];
+                        echo '</td><td>';
+                        echo $topic['TopicName'];
+                        echo '</td><td>';
+                        $percentage = number_format(($topic['QuestionsCorrect']/$topic['QuestionsAnswered']*100), 2);
+                        if($percentage > $max) {
+                            $max = $percentage;
+                            $strongestTopic = $topic['TopicName'];
+                        }
+                        if($percentage < $min) {
+                            $min = $percentage;
+                            $weakestTopic = $topic['TopicName'];
+                        }
+                        echo $percentage."%";
+                        echo '</td></tr>';
+                    }
+                    echo '<p class="badge badge-success"> Strongest Topic: '.$strongestTopic.'</p>';
+                    echo '<p class="badge badge-danger"> Weakest Topic: '.$weakestTopic.'</p>';
+                    ?>
                 </tbody>
             </table>
         </div>

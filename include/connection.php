@@ -53,7 +53,7 @@ class Connection {
     }
 
     public function getAssignmentsByClassID($id) {
-        $this->query = "SELECT 'Date', 'topic.Topic Name' FROM assignment INNER JOIN topic on assignment.TopicID = topic.TopicID WHERE ClassID = ".$id." AND Date > CURRENT_DATE()";
+        $this->query = "SELECT AssignmentID, Date, topic.TopicName FROM assignment INNER JOIN topic on assignment.TopicID = topic.TopicID WHERE ClassID = ".$id." AND Date > CURRENT_DATE()";
         //echo $this->query;
         return $this->connection->query($this->query);
     }
@@ -76,6 +76,21 @@ class Connection {
 
     public function getTopics() {
         $this->query = "SELECT * FROM Topic";
+        return $this->connection->query($this->query);
+    }
+
+    public function createAssignment($class, $topic, $dueDate) {
+        $this->query = "INSERT INTO Assignment(ClassID, TopicID, Date) VALUES(".$class.", ".$topic.", '".$dueDate."')";
+        return $this->connection->query($this->query);
+    }
+
+    public function getAssignmentResult($assignmentID, $studentID) {
+        $this->query = "SELECT QuestionsAnswered, QuestionsCorrect FROM Result WHERE AssignmentID = ".$assignmentID." AND StudentID = ".$studentID;
+        return $this->connection->query($this->query);
+    }
+
+    public function getRecentTopics($id) {
+        $this->query = "SELECT * FROM result INNER JOIN topic ON result.TopicID = topic.TopicID WHERE StudentID = ".$id." ORDER BY DateCompleted ASC LIMIT 10";
         return $this->connection->query($this->query);
     }
 }
