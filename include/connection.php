@@ -18,6 +18,12 @@ class Connection {
         }
     }
 
+    //General update query that does not return any data
+    public function updateQuery(string $query) {
+        return $this->connection->query($query);
+    }
+
+
     //Get account details from email
     public function getUserByEmail(string $email, $accountType) {
         $this->query = "SELECT * FROM ".$accountType." WHERE Email = '".$email."'";
