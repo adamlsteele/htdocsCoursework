@@ -19,7 +19,7 @@ class Connection {
     }
 
     //General update query that does not return any data
-    public function updateQuery(string $query) {
+    public function query(string $query) {
         return $this->connection->query($query);
     }
 
@@ -44,6 +44,12 @@ class Connection {
     //Get class details from id
     public function getClassByID(int $id) {
         $this->query = "SELECT * FROM class WHERE ClassID = ".$id;
+        return $this->connection->query($this->query);
+    }
+
+    //Get class details from code
+    public function getClassByCode(string $code) {
+        $this->query = "SELECT * FROM class WHERE ClassCode = '".$code."'";
         return $this->connection->query($this->query);
     }
 
