@@ -26,7 +26,7 @@ error_reporting(E_ERROR | E_PARSE);
             //If the page is the root (homepage) do not display these navigation buttons
             if(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) != "/" && parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) != "/register.php") {
                 echo '
-                <a href="" class="btn btn-primary m-1">Home</a>
+                <a href="/" class="btn btn-primary m-1">Home</a>
                 <a href="/'.$_SESSION['accountType'].'/profile.php" class="btn btn-primary m-1">Profile</a>
                 <a href="/actions/endSession.php" class="btn btn-danger m-1">Sign out</a>
                 ';

@@ -14,6 +14,11 @@ $userDetails = $connection->getUserByID($_SESSION['accountID'], 'student')->fetc
 
 <div class="m-1 row justify-content-center">
     <div class="col-lg-8">
+        <?php
+        if(isset($_GET['error'])) {
+            echo '<p class="alert alert-danger">'.$_GET['error'].'</p>';
+        }
+        ?>
         <div class="p-4 m-2 card">
             <h3>Edit Profile</h3>
             <h5>Your Details</h5>
@@ -55,7 +60,7 @@ $userDetails = $connection->getUserByID($_SESSION['accountID'], 'student')->fetc
             }else{
                 $classDetails = $connection->getClassByID($userDetails['ClassID'])->fetch_assoc();
                 echo '<table class="table"><thead><tr><th scope="col">Class Name</th><th scope="col">Class Description</th></tr></thead><tbody><tr><td>'.$classDetails['ClassName'].'</td><td>'.$classDetails['ClassDescription'].'</td></tr></tbody></table>';
-                echo '<a class="btn btn-danger" href="/actions/leaveClass.php?id=.'.$userDetails['ClassID'].'">Leave Class</a>';
+                echo '<a class="btn btn-danger" href="/actions/leaveClass.php?id='.$_SESSION['accountID'].'">Leave Class</a>';
             }
             ?>
         </div>

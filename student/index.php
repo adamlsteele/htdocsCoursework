@@ -49,7 +49,7 @@ $recentTopics = $connection->getRecentTopics($_SESSION['accountID']);
             <!-- Class details -->
             <?php
             if($classDetails === -1) {
-                echo '<p class="alert alert-warning"><strong>You are not currently in a class.</strong></br>Join a class to recieve and complete assignments set by your teacher. Ask them for a class code and enter this in the <a class="alert-link" href="/student/profile">profile</a> page.</p>';
+                echo '<p class="alert alert-warning"><strong>You are not currently in a class.</strong></br>Join a class to recieve and complete assignments set by your teacher. Ask them for a class code and enter this in the <a class="alert-link" href="/student/profile.php">profile</a> page.</p>';
             }else {
                 echo '<table class="table"><thead><tr><th scope="col">Class Name</th><th scope="col">Class Description</th></tr></thead><tbody><tr><td>'.$classDetails['ClassName'].'</td><td>'.$classDetails['ClassDescription'].'</td></tr></tbody></table>';
                 echo '<h5 class="mt-2">Due Assignments</h5><table class="table"><thead><tr><th scope="col">Date Due</th><th scope="col">Topic</th><th scope="col">Percentage</th></tr></thead><tbody>';

@@ -21,12 +21,13 @@ $currentUserDetails = $connection->getUserByID($id, $_SESSION['accountType'])->f
 echo password_verify($password, $currentUserDetails);
 if(!password_verify($password, $currentUserDetails['Password'])) {
     header("Location:/".$_SESSION['accountType']."/profile.php?error=Invalid password entered, cannot make changes");
+    die();
 }else {
    //Update the account username
     $query = "UPDATE ".$_SESSION['accountType']."
     SET Username = '".$username."'
     WHERE ".$_SESSION['accountType']."ID = ".$id;
-    $connection->updateQuery($query);
+    $connection->query($query);
 
     //Update the password if a new one is entered and matches a confirmation field
     if($newPassowrd != null ) {
@@ -37,6 +38,7 @@ if(!password_verify($password, $currentUserDetails['Password'])) {
             WHERE ".$_SESSION['accountType']."ID = ".$id;
         }else{
             header("Location:/".$_SESSION['accountType']."/profile.php?error=The two new passwords you entered do not match");
+            die();
         }
     } 
 }
