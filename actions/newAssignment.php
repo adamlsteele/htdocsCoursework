@@ -22,3 +22,5 @@ if($currentDate >= $dueDate) {
 //Insert an assignment into the database
 $connection = new Connection;
 $result = $connection->createAssignment($class, $topic, $dueDate);
+
+header("Location: /teacher?success=Assignment created");
