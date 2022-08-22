@@ -47,6 +47,12 @@ class Connection {
         return $this->connection->query($this->query);
     }
 
+    //Get student details within a class
+    public function getStudentsByID(int $id) {
+        $this->query = "SELECT * FROM Student WHERE ClassID = ".$id;
+        return $this->connection->query($this->query);
+    }
+
     //Get class details from code
     public function getClassByCode(string $code) {
         $this->query = "SELECT * FROM class WHERE ClassCode = '".$code."'";
@@ -103,6 +109,22 @@ class Connection {
 
     public function getRecentTopics($id) {
         $this->query = "SELECT * FROM result INNER JOIN topic ON result.TopicID = topic.TopicID WHERE StudentID = ".$id." ORDER BY DateCompleted ASC LIMIT 10";
+        return $this->connection->query($this->query);
+    }
+
+    public function deleteClass($id) {
+        //Update all the students so that they are no longer in a class
+        $this->query = "SELECT * FROM Student WHERE ClassID = ".$id;
+        $students = $this->connection->query($this->query);
+        foreach($students as $student) {
+            $this->query = "UPDATE Student
+            SET ClassID = null
+            WHERE StudentID = ".$student['StudentID'];
+            $this->connection->query($this->query);
+        }
+
+        //Delete the class from record
+        $this->query = "DELETE FROM Class WHERE ClassID = ".$id;
         return $this->connection->query($this->query);
     }
 }

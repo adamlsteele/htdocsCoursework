@@ -42,7 +42,7 @@ $topics = $connection->getTopics();
                         echo '<h3>'.$class['ClassName'].'</h3>';
                         echo '<p>'.$class['ClassDescription'].'</p>';
                         echo '<p><strong class="badge badge-'.$class['ClassColour'].'">'.$class['ClassCode'].'</strong></p>';
-                        echo '<a class="btn btn-'.$class['ClassColour'].'">Manage Class</a></div>';
+                        echo '<a class="btn btn-'.$class['ClassColour'].'" href="/teacher/manageClass.php?id='.$class["ClassID"].'">Manage Class</a></div>';
                     }
                 }
                 ?>
