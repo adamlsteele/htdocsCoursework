@@ -22,4 +22,4 @@ SET ClassDescription = '".$classDescription."'
 WHERE ClassID = ".$classID;
 $connection->query($query);
 
-header("Location: /");
+header("Location: /teacher/manageClass.php?id=".$_GET['ret']);

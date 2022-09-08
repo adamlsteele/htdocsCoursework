@@ -21,15 +21,20 @@ if($userDetails['ClassID'] !== null) {
     $assignmentDetails = $connection->getAssignmentsByClassID(($userDetails['ClassID']));
 }
 
-//Assign variables for statistics
-$questionsAnswered = $userDetails['Questions Answered'];
-$questionsCorrect = $userDetails['Questions Correct'];
+//Calculate the questions answered and questions correct based on the totals from all topics
+$results = $connection->getResultsById($_SESSION['accountID']);
+$questionsAnswered = 0;
+$questionsCorrect = 0;
+foreach($results as $resultDetails) {
+    $questionsAnswered+= $resultDetails['QuestionsAnswered'];
+    $questionsCorrect+= $resultDetails['QuestionsCorrect'];
+}
 
 //Work out total percentage accuracy to 2 decimal places so that it is easy to read
-$totalQuestionsAccuracy = number_format(($questionsCorrect/$questionsAnswered)*100, 2);
-if($totalQuestionsAccuracy.is_nan) {
-    $totalQuestionsAccuracy = 0;
-}
+$totalQuestionsAccuracy = number_format(($questionsCorrect/$questionsAnswered)*100, 2) + 0;
+
+//Fetch all topic details
+$topicDetails = $connection->getTopics();
 
 //Fetch recent topics completed
 $recentTopics = $connection->getRecentTopics($_SESSION['accountID']);
@@ -61,7 +66,7 @@ $recentTopics = $connection->getRecentTopics($_SESSION['accountID']);
                     echo '</td>';
                     $result = $connection->getAssignmentResult($assignment['AssignmentID'], $_SESSION['accountID'])->fetch_assoc();
                     if($result === null) {
-                        echo '<td><p class="badge badge-danger">Not attempted</p></td>';
+                        echo '<td><a class="badge badge-danger" href="/student/learn.php?assignment='.$assignment['AssignmentID'].'">Click to attempt</a></td>';
                     }else {
                         $percentage = number_format((($result['QuestionsCorrect']/$result['QuestionsAnswered'])*100), 2);
                         echo '<td><p class="badge badge-primary">'.$percentage.'%</p></td>';
@@ -74,7 +79,7 @@ $recentTopics = $connection->getRecentTopics($_SESSION['accountID']);
         <div class="card p-4 m-2">
             <h5>Learn</h5>
             <p>Learn topics outside of a class-set assignment.</p>
-            <button class="btn btn-primary">Learn</button>
+            <btn class="btn btn-small btn-primary mb-4" data-mdb-toggle="modal" data-mdb-target="#learn">Learn</btn>
         </div>
     </div>
     <div class="col-lg-4">
@@ -133,6 +138,84 @@ $recentTopics = $connection->getRecentTopics($_SESSION['accountID']);
     </div>
 </div>
 
+<!--Modal form for creating a new class -->
+<div class="modal fade" id="learn" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Learn</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input class="form-control" onkeyup="searchTopic()" placeholder="Search for a topic..." type="text" id="topicSearch"></input>
+                <p id="searchError"></p>
+                <table class="table">
+                    <thead>
+                            <th scope="col">Topic Name</th>
+                            <th scope="col">Topic Description</th>
+                            <th scope="col">Topic Author</th>
+                            <th scope="col"></th>
+                    </thead>
+                    <tbody id="topicTable">
+                    <?php
+                        foreach($topicDetails as $topic) {
+                            echo '<tr><td>';
+                            echo $topic['TopicName'];
+                            echo '</td><td>';
+                            echo $topic['TopicDescription'];
+                            echo '</td><td>';
+                            //Grab the name of an author
+                            $authorDetails = $connection->getUserByID($topic['AuthorID'], 'teacher')->fetch_assoc();
+                            echo $authorDetails['Username'];
+                            echo '</td><td><a class="btn btn-primary" href="/student/learn.php?topic='.$topic['TopicID'].'">Learn</a></td></tr>';
+                        }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <?php
 require("include/footer.php");
 ?>
+
+<script>
+    //This function is called every time an input is taken in a search box. It performs a fuzzy search.
+    function searchTopic() {
+      var tableData, index, textValue;
+      var searchTerm = document.getElementById("topicSearch");
+      var searchTermFilter = searchTerm.value.toUpperCase();
+      var table = document.getElementById("topicTable");
+      var row = table.getElementsByTagName("tr");
+      var value = false;
+    
+      //Traverse through every topic in the table (each as a row)
+      for(index = 0; index <= row.length-1; index++) {
+        //Make the row visible
+        row[index].style.display = "none";
+        //This grabs col 0 (the title col for the row)
+        tableData = row[index].getElementsByTagName("td")[0];
+        //If statement checks to see if we have any topics
+        if (tableData) {
+          textValue = tableData.textContent || tableData.innerText;
+          //Check to see if the search term exists within the title (this is similar to a linear search)
+          if (textValue.toUpperCase().indexOf(searchTermFilter) > -1) {
+            //Leave the row visible if the search term exists within the title of the topic
+            row[index].style.display = "";
+            value = true;
+          } else {
+            row[index].style.display = "none";
+          }
+        }
+
+        if (value === false) {
+          document.getElementById("searchError").innerHTML = "No topics could be found";
+        }else {
+          document.getElementById("searchError").innerHTML = "";
+        }
+      }
+    }
+</script>

@@ -18,13 +18,13 @@ error_reporting(E_ERROR | E_PARSE);
 <!--Navigation bar-->
 <nav class="navbar navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand">Cloud Coding</a>
+        <a class="navbar-brand">Cloud Coding<?php if(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) === "/student/learn.php"){echo '| Learn Mode';}?></a>
 
         <ul class="navbar-nav"></ul>
         <div class="d-flex align-items-center">
             <?php
             //If the page is the root (homepage) do not display these navigation buttons
-            if(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) != "/" && parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) != "/register.php") {
+            if(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) != "/" && parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) != "/register.php" && parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) != "/student/learn.php" && parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) != "/student/test.php") {
                 echo '
                 <a href="/" class="btn btn-primary m-1">Home</a>
                 <a href="/'.$_SESSION['accountType'].'/profile.php" class="btn btn-primary m-1">Profile</a>

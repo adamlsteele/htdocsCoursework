@@ -22,7 +22,7 @@ $assignments = $connection->getAssignmentsByClassID($classID);
     <div class="col-lg-8">
         <div class="p-4 m-2 card">
             <h3>Manage Class</h3>
-            <form action="/actions/editClass.php" method="POST">
+            <form action="/actions/editClass.php?ret=<?php echo $classID;?>" method="POST">
                 <input value="<?php echo $classID;?>" name="classID" hidden></input>
                 <div class="form-outline mb-4">
                     <input class="form-control" id="name" maxlength=64 required type="text" name="name" value="<?php echo $classDetails['ClassName']; ?>"/>
@@ -39,7 +39,6 @@ $assignments = $connection->getAssignmentsByClassID($classID);
         </div>
         <div class="p-4 m-2 card">
             <h5>Students</h5>
-            <p class="badge badge-primary"><?php if(count($studentsInClass->fetch_assoc()) === 0) {echo 0;}else{echo count($studentsInClass);}?> Total Students</p>
             <p class="badge badge-warning">Class Code: <?php echo $classDetails['ClassCode'];?></p>
             <table class="table">
                 <thead>
@@ -57,8 +56,7 @@ $assignments = $connection->getAssignmentsByClassID($classID);
                         echo '</td><td>';
                         echo $student['Email'];
                         echo '</td><td>';
-                        echo '<a class="text-danger" onclick="return confirm('."'Are you sure you want to remove this student? This change is irreversible. Click ok to continue.'".');" href="/actions/removeStudent.php?id='.$student['StudentID'].'">Remove From Class</a></br>
-                        <a class="text-primary" href="/manageStudent.php?id='.$student['StudentID'].'">View Progress</a>';
+                        echo '<a class="text-danger" onclick="return confirm('."'Are you sure you want to remove this student? This change is irreversible. Click ok to continue.'".');" href="/actions/removeStudent.php?id='.$student['StudentID'].'&ret='.$classID.'">Remove From Class</a></br>';
                         echo '</td></tr>';
                     }
                     ?>
@@ -82,14 +80,32 @@ $assignments = $connection->getAssignmentsByClassID($classID);
                         echo '</td><td>';
                         echo $assignment['TopicName'];
                         echo '</td><td>';
-                        echo '<a class="text-primary" href="/manageAssignment.php?id='.$assignment['AssignmentID'].'">Manage Assignment</a>';
+                        echo '<a class="text-primary" href="/teacher/manageAssignment.php?id='.$assignment['AssignmentID'].'">Manage Assignment</a>';
                         echo '</td></tr>';
                     }
                 ?>
                 </tbody>
             </table>
+            <button class="btn btn-primary" onclick="loadPastAssignments(<?php echo $classID;?>)">Load Past Assignments</button>
+            <div id="pastAssignmentsContainer"></div>
     </div>
 </div>
+
+<script>
+    //Function to actively get past assignments when the button is clicked
+    function loadPastAssignments(id) {
+        //Performs a HTTP Request to the past /actions/loadPastAssignments
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("pastAssignmentsContainer").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "/actions/loadPastAssignments.php?id="+id, true);
+        xmlhttp.send();
+    }
+</script>
+
 
 <?php
 require("include/footer.php");

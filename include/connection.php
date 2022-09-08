@@ -23,6 +23,21 @@ class Connection {
         return $this->connection->query($query);
     }
 
+    public function getTopicByID(int $id) {
+        $this->query = "SELECT * FROM topic WHERE TopicID =".$id;
+        return $this->connection->query($this->query);
+    }
+
+    public function getAssignmentByID(int $id) {
+        $this->query = "SELECT * FROM assignment WHERE AssignmentID =".$id;
+        return $this->connection->query($this->query);
+    }
+
+    public function getQuestionsByID(int $topicID) {
+        $this->query = "SELECT * FROM question WHERE TopicID =".$topicID;
+        return $this->connection->query($this->query);
+    }
+
 
     //Get account details from email
     public function getUserByEmail(string $email, $accountType) {
@@ -97,18 +112,33 @@ class Connection {
         return $this->connection->query($this->query);
     }
 
+    public function getQuestionByID($id) {
+        $this->query = "SELECT * FROM Question WHERE QuestionID = ".$id;
+        return $this->connection->query($this->query);
+    }
+
     public function createAssignment($class, $topic, $dueDate) {
         $this->query = "INSERT INTO Assignment(ClassID, TopicID, Date) VALUES(".$class.", ".$topic.", '".$dueDate."')";
         return $this->connection->query($this->query);
     }
 
     public function getAssignmentResult($assignmentID, $studentID) {
-        $this->query = "SELECT QuestionsAnswered, QuestionsCorrect FROM Result WHERE AssignmentID = ".$assignmentID." AND StudentID = ".$studentID;
+        $this->query = "SELECT * FROM Result WHERE AssignmentID = ".$assignmentID." AND StudentID = ".$studentID;
         return $this->connection->query($this->query);
     }
 
     public function getRecentTopics($id) {
-        $this->query = "SELECT * FROM result INNER JOIN topic ON result.TopicID = topic.TopicID WHERE StudentID = ".$id." ORDER BY DateCompleted ASC LIMIT 10";
+        $this->query = "SELECT * FROM result INNER JOIN topic ON result.TopicID = topic.TopicID WHERE StudentID = ".$id." ORDER BY DateCompleted ASC LIMIT 2";
+        return $this->connection->query($this->query);
+    }
+
+    public function getResultsbyID($id) {
+        $this->query = "SELECT * FROM result WHERE StudentID = ".$id;
+        return $this->connection->query($this->query);
+    }
+
+    public function getPastAssignmentsByID($id) {
+        $this->query = "SELECT AssignmentID, Date, topic.TopicName FROM assignment INNER JOIN topic on assignment.TopicID = topic.TopicID WHERE ClassID = ".$id." AND Date < CURRENT_DATE()";
         return $this->connection->query($this->query);
     }
 
@@ -127,6 +157,20 @@ class Connection {
         $this->query = "DELETE FROM Class WHERE ClassID = ".$id;
         return $this->connection->query($this->query);
     }
+
+    public function addTopicResult($topicID, $studentID, $questionsAnswered, $questionsCorrect, $questionOne, $questionOneResult, $questionTwo, $questionTwoResult, $questionThree, $questionThreeResult, $questionFour, $questionFourResult, $questionFive, $questionFiveResult) {
+        $this->query = "INSERT INTO result(TopicID, StudentID, QuestionsAnswered, QuestionsCorrect, QuestionOneID, QuestionOneAnswer, QuestionTwoID, QuestionTwoAnswer,  QuestionThreeID, QuestionThreeAnswer, QuestionFourID, QuestionFourAnswer, QuestionFiveID, QuestionFiveAnswer) 
+        VALUES (".$topicID.", ".$studentID.", ".$questionsAnswered.", ".$questionsCorrect.", ".$questionOne.", '".$questionOneResult."', ".$questionTwo.", '".$questionTwoResult."', ".$questionThree.", '".$questionThreeResult."', ".$questionFour.", '".$questionFourResult."', ".$questionFive.", '".$questionFiveResult."')";
+        return $this->connection->query($this->query);
+    }
+
+    public function addAssignmentResult($assignmentID, $topicID, $studentID, $questionsAnswered, $questionsCorrect, $questionOne, $questionOneResult, $questionTwo, $questionTwoResult, $questionThree, $questionThreeResult, $questionFour, $questionFourResult, $questionFive, $questionFiveResult) {
+        $this->query = "INSERT INTO result(AssignmentID, TopicID, StudentID, QuestionsAnswered, QuestionsCorrect, QuestionOneID, QuestionOneAnswer, QuestionTwoID, QuestionTwoAnswer,  QuestionThreeID, QuestionThreeAnswer, QuestionFourID, QuestionFourAnswer, QuestionFiveID, QuestionFiveAnswer) 
+        VALUES (".$assignmentID.", ".$topicID.", ".$studentID.", ".$questionsAnswered.", ".$questionsCorrect.", ".$questionOne.", '".$questionOneResult."', ".$questionTwo.", '".$questionTwoResult."', ".$questionThree.", '".$questionThreeResult."', ".$questionFour.", '".$questionFourResult."', ".$questionFive.", '".$questionFiveResult."')";
+        $this->connection->query($this->query);
+        return;
+    }
+
 }
 
 ?>

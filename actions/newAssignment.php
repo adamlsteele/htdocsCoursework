@@ -23,4 +23,4 @@ if($currentDate >= $dueDate) {
 $connection = new Connection;
 $result = $connection->createAssignment($class, $topic, $dueDate);
 
-header("Location: /teacher?success=Assignment created");
+header("Location: /teacher/manageClass.php?id=".$class);

@@ -27,15 +27,6 @@ $dbResult = $connection->getUserByEmail($email, $accountType);
 
 if($dbResult->num_rows === 0) {
     $dbResult = $connection->createAccount($email, $username, $password, $accountType);
-    $account = $dbResult->fetch_assoc();
-    //Setup session variables
-    $_SESSION['accountType'] = $accountType;
-    switch($accountType) {
-        case("student"):
-            $_SESSION['accountID'] = $account['StudentID'];
-        case("teacher"):
-            $_SESSION['accountID'] = $account['TeacherID'];
-    }
     header("Location: /");
 }else {
     header("Location: /register.php?error=An account with that email already exists");
