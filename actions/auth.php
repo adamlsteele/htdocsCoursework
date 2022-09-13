@@ -56,4 +56,6 @@ if($accountType === "student") {
     }
 }
 
+echo $connection->error;
+
 ?>
