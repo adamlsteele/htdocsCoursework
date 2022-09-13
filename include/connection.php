@@ -13,7 +13,7 @@ class Connection {
         $password = "miniecrb_cloudcoding";
 
         //Establish a connection and return the connection error if failed
-        $this->connection = new mysqli($host, $username, $password,  "", $database);
+        $this->connection = new mysqli($host, $username, $password, $database);
         if($this->connection->connect_error) {
             die("Connection was not established: " . $this->connection->connect_error);
         }
