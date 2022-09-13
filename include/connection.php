@@ -8,11 +8,12 @@ class Connection {
     public function __construct() {
         //Variables used to form a connection string
         $host = "localhost";
-        $username = "root";
-        $database = "cloud_coding";
+        $username = "miniecrb_cloudcoding";
+        $database = "miniecrb_cloudcoding";
+        $password = "miniecrb_cloudcoding";
 
         //Establish a connection and return the connection error if failed
-        $this->connection = new mysqli($host, $username, "", $database);
+        $this->connection = new mysqli($host, $username, $password,  "", $database);
         if($this->connection->connect_error) {
             die("Connection was not established: " . $this->connection->connect_error);
         }
