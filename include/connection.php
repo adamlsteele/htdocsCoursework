@@ -10,7 +10,7 @@ class Connection {
         $host = "localhost";
         $username = "miniecrb_cloudcoding";
         $database = "miniecrb_cloudcoding";
-        $password = "miniecrb_cloudcoding";
+        $password = "cloudcoding";
 
         //Establish a connection and return the connection error if failed
         $this->connection = new mysqli($host, $username, $password, $database);
