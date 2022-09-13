@@ -109,7 +109,7 @@ class Connection {
     }
 
     public function getTopics() {
-        $this->query = "SELECT * FROM Topic";
+        $this->query = "SELECT * FROM topic";
         return $this->connection->query($this->query);
     }
 
