@@ -40,7 +40,7 @@ function sortArray($array) {
     }
 }
 
-$sortedArray = sortArray($resultsArray));
+$sortedArray = sortArray($resultsArray);
 
 echo print_r($sortedArray);
 
