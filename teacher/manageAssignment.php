@@ -36,7 +36,7 @@ function sortArray($array) {
                 $right[] = $arr[$i];
             }
         }
-        return array_merge(sortArray($left), $pivot, sortArray[$right]);
+        return array_merge(sortArray($left), $pivot, sortArray($right));
     }
 }
 
