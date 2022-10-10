@@ -22,7 +22,7 @@ foreach($studentsInClass as $student) {
     array_push($resultsArray, array($student['Username'], $percentage));
 }
 
-function sortArray($array) {
+function sortArray($arr) {
     echo $arr[0][1];
     echo $arr[1][1];
     if(count($arr) <= 1 ) {
