@@ -87,8 +87,8 @@ class Connection {
     }
 
     public function getAssignmentsByClassID($id) {
-        $this->query = "SELECT `AssignmentID`, `Date`, `topic.TopicName` FROM `assignment` INNER JOIN `topic` on `assignment.TopicID` = `topic.TopicID` WHERE `ClassID` = ".$id." AND `Date` > `CURRENT_DATE()`";
-        //echo $this->query;
+        $this->query = "SELECT `AssignmentID`, `Date`, `topic.TopicName` FROM `assignment` INNER JOIN `topic` on `assignment.TopicID` = `topic.TopicID` WHERE `ClassID` = ".$id." AND `Date` > CURRENT_DATE()";
+        echo $this->connection->error;
         return $this->connection->query($this->query);
     }
 
