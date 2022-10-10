@@ -22,7 +22,7 @@ foreach($studentsInClass as $student) {
     array_push($resultsArray, array($student['Username'], $percentage));
 }
 
-public function sortArray(&$arrayToSort, $low, $high) {
+function sortArray(&$arrayToSort, $low, $high) {
     //Sort a particular index so that it is in its correct position
     $partitionIndex = partitionArray($arrayToSort, $low, $high);
     if($low < $index-1) {
@@ -32,7 +32,7 @@ public function sortArray(&$arrayToSort, $low, $high) {
     }
 }
 
-public function partitionArray(&$arrayToSort, $low, $high) {
+function partitionArray(&$arrayToSort, $low, $high) {
     $pivotPoint = $arrayToSort[($low + $high)/2][1];
     while ($low <= $high) {
         while ($arrayToSort[$low][1] < $pivotPoint){
