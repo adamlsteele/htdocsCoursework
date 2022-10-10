@@ -16,13 +16,9 @@ if($_SERVER['REQUEST_METHOD'] != "POST") {
 $characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 $randomCode = "";
 
-while(!$repeated) {
-    for ($i = 0; $i < 6; $i++) {
-        $index = rand(0, strlen($characters) - 1);
-        $randomCode .= $characters[$index];
-    }
-
-    
+for ($i = 0; $i < 6; $i++) {
+    $index = rand(0, strlen($characters) - 1);
+    $randomCode .= $characters[$index];
 }
 
 echo $randomCode;
