@@ -17,8 +17,9 @@ $resultsArray;
 
 foreach($studentsInClass as $student) {
     $assignmentResult = $connection->getAssignmentResult($assignmentID, $student['StudentID'])->fetch_assoc();
-    $percentage = $assignmentResult['QuestionsCorrect']/$assignmentResult['QuestionsAnswered'])*100;
+    $percentage = ($assignmentResult['QuestionsCorrect']/$assignmentResult['QuestionsAnswered'])*100;
     array_push($resultsArray, array($student['Username'], $percentage));
+    echo print_r($resultsArray);
 }
 
 
