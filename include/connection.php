@@ -114,7 +114,7 @@ class Connection {
     }
 
     public function getQuestionByID($id) {
-        $this->query = "SELECT * FROM Question WHERE QuestionID = ".$id;
+        $this->query = "SELECT * FROM `Question` WHERE `QuestionID` = ".$id;
         return $this->connection->query($this->query);
     }
 
