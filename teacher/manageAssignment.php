@@ -23,6 +23,8 @@ foreach($studentsInClass as $student) {
 }
 
 function sortArray($array) {
+    echo $arr[0][1];
+    echo $arr[1][1];
     if(count($arr) <= 1 ) {
         return $arr;
     }else {
