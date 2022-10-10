@@ -119,7 +119,7 @@ class Connection {
     }
 
     public function createAssignment($class, $topic, $dueDate) {
-        $this->query = "INSERT INTO Assignment(ClassID, TopicID, Date) VALUES(".$class.", ".$topic.", '".$dueDate."')";
+        $this->query = "INSERT INTO `assignment`(`ClassID`, `TopicID`, `Date`) VALUES(".$class.", ".$topic.", '".$dueDate."')";
         return $this->connection->query($this->query);
     }
 
