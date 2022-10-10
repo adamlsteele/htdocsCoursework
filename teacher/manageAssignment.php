@@ -23,14 +23,12 @@ foreach($studentsInClass as $student) {
 }
 
 function sortArray($arr) {
-    echo $arr[0][1];
-    echo $arr[1][1];
     if(count($arr) <= 1 ) {
         return $arr;
     }else {
         $pivot = $arr[0][1];
-        $left = array();
-        $right = array();
+        $left = array(array());
+        $right = array(array());
         for($i = 1; i < count($arr); $i++) {
             if($arr[$i][1] < $pivot) {
                 $left[] = $arr[$i];
