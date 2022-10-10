@@ -15,11 +15,44 @@ $assignmentDetails = $connection->getAssignmentByID($assignmentID)->fetch_assoc(
 $studentsInClass = $connection->getStudentsByID($assignmentDetails['ClassID']);
 $resultsArray = array();
 
+//Add a username and percentage score to an array that can be sorted
 foreach($studentsInClass as $student) {
     $assignmentResult = $connection->getAssignmentResult($assignmentID, $student['StudentID'])->fetch_assoc();
     $percentage = ($assignmentResult['QuestionsCorrect']/$assignmentResult['QuestionsAnswered'])*100;
     array_push($resultsArray, array($student['Username'], $percentage));
 }
+
+public function sortArray(&$arrayToSort, $low, $high) {
+    //Sort a particular index so that it is in its correct position
+    $partitionIndex = partitionArray($arrayToSort, $low, $high);
+    if($low < $index-1) {
+        sortArray($arrayToSort, $low, $index-1);
+    }else if($index < $high) {
+        sortArray($arrayToSort, $index, $high);
+    }
+}
+
+public function partitionArray(&$arrayToSort, $low, $high) {
+    $pivotPoint = $arrayToSort[($low + $high)/2][1];
+    while ($low <= $high) {
+        while ($arrayToSort[$low][1] < $pivotPoint){
+            $low++;
+        }
+        while ($arrayToSort[$high][1] > $pivotPoint){
+            $high--;
+        }
+        if($low <= $high) {
+            $temp = $arrayToSort[$low];
+            $arrayToSort[$low] = arrayToSort[$high];
+            $arrayToSort[$high] = $temp;
+            $low++;
+            $high--;
+        }
+    }
+    return $low;
+}
+
+sortArray($resultsArray);
 
 echo print_r($resultsArray);
 
