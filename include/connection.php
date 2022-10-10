@@ -93,12 +93,12 @@ class Connection {
     }
 
     public function getClassesByTeacherID($id) {
-        $this->query = "SELECT * FROM `Class` WHERE `TeacherID` = ".$id;
+        $this->query = "SELECT * FROM `class` WHERE `TeacherID` = ".$id;
         return $this->connection->query($this->query);
     }
 
     public function getClassByName($name) {
-        $this->query = "SELECT * FROM `Class` WHERE `Class Name` = '".$name."'";
+        $this->query = "SELECT * FROM `class` WHERE `Class Name` = '".$name."'";
         return $this->connection->query($this->query);
     }
 
