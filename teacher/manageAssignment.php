@@ -22,39 +22,27 @@ foreach($studentsInClass as $student) {
     array_push($resultsArray, array($student['Username'], $percentage));
 }
 
-function sortArray(&$arrayToSort, $low, $high) {
-    //Sort a particular index so that it is in its correct position
-    $partitionIndex = partitionArray($arrayToSort, $low, $high);
-    if($low < $index-1) {
-        sortArray($arrayToSort, $low, $index-1);
-    }else if($index < $high) {
-        sortArray($arrayToSort, $index, $high);
+function sortArray($array) {
+    if(count($arr) <= 1 ) {
+        return $arr;
+    }else {
+        $pivot = $arr[0][1];
+        $left = array();
+        $right = array();
+        for($i = 1; i < count($arr); $i++) {
+            if($arr[$i][1] < $pivot) {
+                $left[] = $arr[$i];
+            }else {
+                $right[] = $arr[$i];
+            }
+        }
+        return array_merge(sortArray($left), $pivot, sortArray[$right]);
     }
 }
 
-function partitionArray(&$arrayToSort, $low, $high) {
-    $pivotPoint = $arrayToSort[($low + $high)/2][1];
-    while ($low <= $high) {
-        while ($arrayToSort[$low][1] < $pivotPoint){
-            $low++;
-        }
-        while ($arrayToSort[$high][1] > $pivotPoint){
-            $high--;
-        }
-        if($low <= $high) {
-            $temp = $arrayToSort[$low];
-            $arrayToSort[$low] = arrayToSort[$high];
-            $arrayToSort[$high] = $temp;
-            $low++;
-            $high--;
-        }
-    }
-    return $low;
-}
+$sortedArray = array(sortArray($resultsArray))
 
-sortArray($resultsArray, 0, count($resultsArray));
-
-echo print_r($resultsArray);
+echo print_r($sortedArray);
 
 
 ?>
