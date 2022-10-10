@@ -1,12 +1,16 @@
 <?php
+//Include connection file
 session_start();
 require "include/connection.php";
 
+//Initialise a new connection
 $connection = new Connection;
 
+//Fetch the past assignments using a class ID.
 $classID = $_GET['id'];
 $assignments = $connection->getPastAssignmentsByID($classID)
 
+//Echo past assignments within a table
 ?>
 <table class="table">
 <thead>

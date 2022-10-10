@@ -6,11 +6,13 @@ require "include/header.php";
 if($_SERVER['REQUEST_METHOD'] != "POST") {
     die("Invalid request.");
 }else {
+    //Initialise local variables for data that has been passed
     $classID = $_POST['classID'];
     $className = $_POST['name'];
     $classDescription = $_POST['description'];
 }
 
+//Initalise a new connection class and update both the class name and class description
 $connection = new Connection;
 $query = "UPDATE Class
 SET ClassName = '".$className."'
@@ -22,4 +24,5 @@ SET ClassDescription = '".$classDescription."'
 WHERE ClassID = ".$classID;
 $connection->query($query);
 
+//Redirect to the appropiate manage class page after handling SQL query
 header("Location: /teacher/manageClass.php?id=".$_GET['ret']);

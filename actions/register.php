@@ -6,6 +6,7 @@ require "include/header.php";
 if($_SERVER['REQUEST_METHOD'] != "POST") {
     die("Invalid request.");
 }else {
+    //Initialise local variables for data that has been passed
     $accountType = $_POST['accountType'];
     $email = $_POST['email'];
     $username = $_POST['username'];
@@ -18,13 +19,14 @@ if($password != $confirmPassword) {
     header("Location: /register.php?error=Passwords entered do not match");
 }
 
-//Check to see if an account already exists
+//Initialise a new connection class
 $connection = new Connection;
 
-//Because the radio button values are Student, Teacher (the same names of the databases)
-//it is simple to use concatenation so that one query can handle both types of accounts
+//Because the radio buttons are student and teacher it is possible to use concatenation in the SQL string.
+//This means we can choose either the student table or teacher table.
 $dbResult = $connection->getUserByEmail($email, $accountType);
 
+//Validation that occurs if an account with the entered email already exists
 if($dbResult->num_rows === 0) {
     $dbResult = $connection->createAccount($email, $username, $password, $accountType);
     header("Location: /");

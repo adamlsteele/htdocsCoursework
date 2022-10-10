@@ -6,6 +6,7 @@ require "include/header.php";
 if($_SERVER['REQUEST_METHOD'] != "POST") {
     die("Invalid request.");
 }else {
+    //Initialise local variables for data that has been passed
     $username = $_POST['username'];
     $newPassowrd = $_POST['newPassword'];
     $confirmNewPassword = $_POST['confirmNewPassword'];
@@ -43,4 +44,5 @@ if(!password_verify($password, $currentUserDetails['Password'])) {
     } 
 }
 
+//Redirect back to the profile page
 header("Location:/".$_SESSION['accountType']."/profile.php");

@@ -8,14 +8,16 @@ if(!(isset($_SESSION['accountType']) && $_SESSION['accountType'] == 'student')) 
 
 
 //Grab account details for ID stored within session variable
+
+//Initialise a new connection class
 $connection = new Connection();
 $userDetails = $connection->getUserByID($_SESSION['accountID'], "student")->fetch_assoc();
 
+//Initialise local variable for data fetched from the database
 $username = $userDetails['Username'];
 
 //Grab class details for a user if they are in a class
 $classDetails = -1;
-
 if($userDetails['ClassID'] !== null) {
     $classDetails = $connection->getClassByID($userDetails['ClassID'])->fetch_assoc();
     $assignmentDetails = $connection->getAssignmentsByClassID(($userDetails['ClassID']));
@@ -77,6 +79,7 @@ $recentTopics = $connection->getRecentTopics($_SESSION['accountID']);
             ?>
         </div>
         <div class="card p-4 m-2">
+            <!-- Learn section for custom learning -->
             <h5>Learn</h5>
             <p>Learn topics outside of a class-set assignment.</p>
             <btn class="btn btn-small btn-primary mb-4" data-mdb-toggle="modal" data-mdb-target="#learn">Learn</btn>
@@ -111,12 +114,14 @@ $recentTopics = $connection->getRecentTopics($_SESSION['accountID']);
                     $strongestTopic = "No data";
                     $min = 101;
                     $weakestTopic = "No data";
+                    //Loop through recent topics
                     foreach($recentTopics as $topic) {
                         echo '<tr><td>';
                         echo $topic['DateCompleted'];
                         echo '</td><td>';
                         echo $topic['TopicName'];
                         echo '</td><td>';
+                        //Compare percentage against the max and min recorded percentage.
                         $percentage = number_format(($topic['QuestionsCorrect']/$topic['QuestionsAnswered']*100), 2);
                         if($percentage > $max) {
                             $max = $percentage;
@@ -129,6 +134,7 @@ $recentTopics = $connection->getRecentTopics($_SESSION['accountID']);
                         echo $percentage."%";
                         echo '</td></tr>';
                     }
+                    //Display max and min percentage
                     echo '<p class="badge badge-success"> Strongest Topic: '.$strongestTopic.'</p>';
                     echo '<p class="badge badge-danger"> Weakest Topic: '.$weakestTopic.'</p>';
                     ?>
@@ -183,6 +189,7 @@ require("include/footer.php");
 ?>
 
 <script>
+    //JavaScript
     //This function is called every time an input is taken in a search box. It performs a fuzzy search.
     function searchTopic() {
       var tableData, index, textValue;
@@ -211,6 +218,7 @@ require("include/footer.php");
           }
         }
 
+        //If a value could not be found
         if (value === false) {
           document.getElementById("searchError").innerHTML = "No topics could be found";
         }else {
