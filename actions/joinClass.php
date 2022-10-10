@@ -18,7 +18,7 @@ if($classDetails->num_rows === 0) {
     $classDetailsArray = $classDetails->fetch_assoc();
     $classID = $classDetailsArray['ClassID'];
     
-    $query = "UPDATE `Student`
+    $query = "UPDATE `student`
     SET `ClassID` = $classID
     WHERE `StudentID` = ".$_SESSION['accountID'];
 
