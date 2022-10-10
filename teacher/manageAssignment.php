@@ -52,7 +52,7 @@ function partitionArray(&$arrayToSort, $low, $high) {
     return $low;
 }
 
-sortArray($resultsArray);
+sortArray($resultsArray, 0, count($resultsArray));
 
 echo print_r($resultsArray);
 
