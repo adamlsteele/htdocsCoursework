@@ -103,7 +103,7 @@ class Connection {
     }
 
     public function createClass($id, $name, $description, $colour, $code) {
-        $this->query = "INSERT INTO class(TeacherID, ClassName, ClassDescription, ClassCode, ClassColour) VALUES(".$id.", '".$name."', '".$description."', '".$code."', '".$colour."')";
+        $this->query = "INSERT INTO `class`(`TeacherID`, `ClassName`, `ClassDescription`, `ClassCode`, `ClassColour`) VALUES(".$id.", '".$name."', '".$description."', '".$code."', '".$colour."')";
         echo $this->query;
         return $this->connection->query($this->query);
     }
