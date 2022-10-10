@@ -124,7 +124,7 @@ class Connection {
     }
 
     public function getAssignmentResult($assignmentID, $studentID) {
-        $this->query = "SELECT * FROM `result` WHERE `AssignmentID` = ".$assignmentID." AND StudentID = ".$studentID;
+        $this->query = "SELECT * FROM `result` WHERE `AssignmentID` = ".$assignmentID." AND `StudentID` = ".$studentID;
         return $this->connection->query($this->query);
     }
 
