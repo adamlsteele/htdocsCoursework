@@ -18,9 +18,9 @@ if($classDetails->num_rows === 0) {
     $classDetailsArray = $classDetails->fetch_assoc();
     $classID = $classDetailsArray['ClassID'];
     
-    $query = "UPDATE Student
-    SET ClassID = $classID
-    WHERE StudentID = ".$_SESSION['accountID'];
+    $query = "UPDATE `Student`
+    SET `ClassID` = $classID
+    WHERE `StudentID` = ".$_SESSION['accountID'];
 
     $connection->query($query);
     header("Location:/student/profile.php");
