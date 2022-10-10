@@ -13,7 +13,7 @@ $assignmentID = $_GET['id'];
 
 $assignmentDetails = $connection->getAssignmentByID($assignmentID)->fetch_assoc();
 $studentsInClass = $connection->getStudentsByID($assignmentDetails['ClassID']);
-$resultsArray;
+$resultsArray[];
 
 foreach($studentsInClass as $student) {
     $assignmentResult = $connection->getAssignmentResult($assignmentID, $student['StudentID'])->fetch_assoc();
