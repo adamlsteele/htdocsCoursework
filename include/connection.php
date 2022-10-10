@@ -115,6 +115,8 @@ class Connection {
 
     public function getQuestionByID($id) {
         $this->query = "SELECT * FROM `Question` WHERE `QuestionID` = ".$id;
+        $this->connection->query($this->query);
+        echo $connection ->connect_error;
         return $this->connection->query($this->query);
     }
 
