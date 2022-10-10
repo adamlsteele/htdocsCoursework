@@ -115,8 +115,6 @@ class Connection {
 
     public function getQuestionByID($id) {
         $this->query = "SELECT * FROM `question` WHERE `QuestionID` = ".$id;
-        $this->connection->query($this->query);
-        echo $this->connection->error;
         return $this->connection->query($this->query);
     }
 
@@ -147,17 +145,17 @@ class Connection {
 
     public function deleteClass($id) {
         //Update all the students so that they are no longer in a class
-        $this->query = "SELECT * FROM Student WHERE ClassID = ".$id;
+        $this->query = "SELECT * FROM `student` WHERE `ClassID` = ".$id;
         $students = $this->connection->query($this->query);
         foreach($students as $student) {
-            $this->query = "UPDATE Student
-            SET ClassID = null
-            WHERE StudentID = ".$student['StudentID'];
+            $this->query = "UPDATE `student`
+            SET `ClassID` = null
+            WHERE `StudentID` = ".$student['StudentID'];
             $this->connection->query($this->query);
         }
 
         //Delete the class from record
-        $this->query = "DELETE FROM Class WHERE ClassID = ".$id;
+        $this->query = "DELETE FROM `class` WHERE `ClassID` = ".$id;
         return $this->connection->query($this->query);
     }
 
