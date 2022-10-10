@@ -65,7 +65,7 @@ class Connection {
 
     //Get student details within a class
     public function getStudentsByID(int $id) {
-        $this->query = "SELECT * FROM `Student` WHERE `ClassID` = ".$id;
+        $this->query = "SELECT * FROM `student` WHERE `ClassID` = ".$id;
         return $this->connection->query($this->query);
     }
 
