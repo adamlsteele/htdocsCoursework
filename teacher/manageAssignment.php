@@ -15,8 +15,11 @@ $assignmentDetails = $connection->getAssignmentByID($assignmentID)->fetch_assoc(
 $studentsInClass = $connection->getStudentsByID($assignmentDetails['ClassID']);
 $resultsArray = array();
 
+//Total variable used to sum up all the percentages
 $total = 0;
+//Variable that stores the total questions attempted
 $totalQuestions = 0;
+//Variable that stores the total questions that were answered correctly
 $totalQuestionsCorrect = 0;
 $average = 0;
 $students = 0;
@@ -34,7 +37,7 @@ foreach($studentsInClass as $student) {
     $totalQuestionsCorrect = $totalQuestionsCorrect + $assignmentResult['QuestionsCorrect'];
 }
 
-$average = ($total / $students);
+$average = ($totalQuestions / $totalQuestionsCorrect)*100;
 
 function insertionSort(&$array, $n) {
     for($i=0; $i<$n; $i++) {
