@@ -38,6 +38,28 @@ if($dbResult->num_rows != 0) {
     //Verification that redirects if the account does not exist
     header("Location: /?error=Account does not exist");
 }
+
+//Check for type of account
+if($accountType === "student") {
+    $dbResult = $connection->getUserByEmail($email, "student");
+    //Check if an account with the entered email exists
+    if($dbResult->num_rows != 0) {
+        //Validate password
+        $account = $dbResult->fetch_assoc();
+        if(password_verify($password, $account['Password'])) {
+            //Authentication valid
+            //Setup session variables
+            $_SESSION['accountType'] = "student";
+            $_SESSION['accountID'] = $account['StudentID'];
+            header("Location: /student");
+        }else {
+            header("Location: /?error=Invalid details");
+        }
+    }else {
+        header("Location: /?error=Account does not exist");
+    }
+}
+
 //If the database failed an SQL request, output that error
 echo $connection->error;
 ?>
