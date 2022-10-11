@@ -43,7 +43,7 @@ SET `".$colName."` = '".$modifiedAnswer."'
 WHERE `ResultID` = ".$resultID);
 
 $connection->query("UPDATE `result`
-SET `QuestionsCorrec`t = `QuestionsCorrect` + 1
+SET `QuestionsCorrect` = `QuestionsCorrect` + 1
 WHERE `ResultID` = ".$resultID);
 
 //Redirect back to the manage assignment place
