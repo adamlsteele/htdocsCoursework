@@ -46,7 +46,7 @@ insertionSort($resultsArray, count($resultsArray));
 
 ?>
 <div class="m-1 row justify-content-center">
-    <div class="card" style="width: 18rem;">
+    <div class="card">
     <div class="card-body">
         <h5 class="card-title">Average Percentage</h5>
         <h6 class="card-subtitle mb-2 text-muted"><?php echo $percentage; ?></h6>
