@@ -24,6 +24,7 @@ echo '<p class="alert alert-primary">Student scored '.$resultArray[6].'/'.$resul
     for($i = 7; $i < 17; $i+=2) {
         //Fetch the details of a particular question, including the proper answer
         $questionDetails = $connection->getQuestionByID($resultArray[$i])->fetch_assoc();
+        echo $questionDetails['Question'];
         //Determine if the question was a written one as opposed to multiple choice by seeing if multiple question options are stored in the database
         if($questionDetails['QuestionAnswer2'] == null) {
             //If the written question input matched the answer, output a success box
