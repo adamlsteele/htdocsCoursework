@@ -15,6 +15,9 @@ $assignmentDetails = $connection->getAssignmentByID($assignmentID)->fetch_assoc(
 $studentsInClass = $connection->getStudentsByID($assignmentDetails['ClassID']);
 $resultsArray = array();
 
+$total = 0;
+$totalQuestions = 0;
+$totalQuestionsCorrect = 0;
 $average = 0;
 $students = 0;
 
@@ -24,14 +27,14 @@ foreach($studentsInClass as $student) {
     $percentage = ($assignmentResult['QuestionsCorrect']/$assignmentResult['QuestionsAnswered'])*100;
     array_push($resultsArray, array($student['Username'], $percentage, $student['StudentID']));
     if(!is_nan($percentage)){
-        echo $percentage;
-        echo $average;
-        $average = $average + $percentage;
+        $total = $total + $percentage;
         $students++;
     }
+    $totalQuestions = $totalQuestions + $assignmentResult['QuestionsAnswered'];
+    $totalQuestionsCorrect = $totalQuestionsCorrect + $assignmentResult['QuestionsCorrect'];
 }
 
-$average = $average/$students;
+$average = ($total / $students);
 
 function insertionSort(&$array, $n) {
     for($i=0; $i<$n; $i++) {
@@ -49,12 +52,18 @@ insertionSort($resultsArray, count($resultsArray));
 ?>
 <div class="m-1 row justify-content-center">
     <div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Average Percentage</h5>
-        <h6 class="card-subtitle mb-2 text-muted"><?php echo $percentage; ?></h6>
-        <h5 class="card-title">Total Students Completed</h5>
-        <h6 class="card-subtitle mb-2 text-muted"><?php echo $students; ?></h6>
-    </div>
+        <div class="card-body">
+            <h5 class="card-title">Average Percentage</h5>
+            <h6 class="card-subtitle mb-2 text-muted"><?php echo $percentage; ?>%</h6>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Total Students Completed</h5>
+            <h6 class="card-subtitle mb-2 text-muted"><?php echo $students; ?></h6>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Total Questions Answered</h5>
+            <h6 class="card-subtitle mb-2 text-muted"><?php echo $totalQuestions; ?></h6>
+        </div>
     </div>
     <div class="col-lg-8">
         <div class="p-4 m-2 card">
