@@ -59,7 +59,7 @@ echo print_r($resultsArray);
                         if($student[1] === null) {
                             echo '<p class="badge badge-danger">Not attempted</p>';
                         }else {
-                            echo $student[1];
+                            echo $student[1]."%";
                             echo '</td><td>';
                             echo '<button class="btn btn-sm btn-primary" onclick="editScoreLoad('.$student[2].', '.$assignmentID.')" data-mdb-toggle="modal" data-mdb-target="#changeScore">View Answers</a>';
                         }
