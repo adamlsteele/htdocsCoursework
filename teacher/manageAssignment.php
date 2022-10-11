@@ -21,7 +21,7 @@ $total = 0;
 $totalQuestions = 0;
 //Variable that stores the total questions that were answered correctly
 $totalQuestionsCorrect = 0;
-$average = 0;
+$average;
 $students = 0;
 
 //Add a username and percentage score to an array that can be sorted
