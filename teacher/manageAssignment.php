@@ -56,7 +56,7 @@ echo print_r($resultsArray);
                         echo '<tr><td>';
                         echo $student[0];
                         echo '</td><td>';
-                        if($student[1] === null) {
+                        if($student[1] === "NAN") {
                             echo '<p class="badge badge-danger">Not attempted</p>';
                         }else {
                             echo $student[1]."%";
