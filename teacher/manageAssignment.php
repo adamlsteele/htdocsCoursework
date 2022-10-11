@@ -26,14 +26,13 @@ function insertionSort(&$array, $n) {
     for($i=0; $i<$n; $i++) {
       $currentValue = $array[$i];
       $j = $i - 1;
-      while($j >= 0 && $currentValue[1] < $array[$j][1]) {
+      while($j >= 0 && $currentValue[1] > $array[$j][1]) {
         $array[$j + 1] = $array[$j];
         $array[$j] = $curr;
         $j = $j - 1;
       }
     }
 }
-echo print_r($resultsArray);
 insertionSort($resultsArray, count($resultsArray));
 echo print_r($resultsArray);
 
