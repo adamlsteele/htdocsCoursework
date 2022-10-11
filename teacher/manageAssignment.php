@@ -22,27 +22,20 @@ foreach($studentsInClass as $student) {
     array_push($resultsArray, array($student['Username'], $percentage));
 }
 
-function sortArray($arr) {
-    if(count($arr) <= 1 ) {
-        return $arr;
-    }else {
-        $pivot = $arr[0][1];
-        $left = array(array());
-        $right = array(array());
-        for($i = 1; i < count($arr); $i++) {
-            if($arr[$i][1] < $pivot) {
-                $left[] = $arr[$i];
-            }else {
-                $right[] = $arr[$i];
-            }
-        }
-        return array_merge(sortArray($left), $pivot, sortArray($right));
+function insertionSort(&$array, $n) {
+    for($i=0; $i<$n; $i++) {
+      $currentValue = $array[$i];
+      $j = $i - 1;
+      while($j >= 0 && $currentValue[1] < $array[$j][1]) {]
+        $array[$j + 1] = $array[$j];
+        $array[$j] = $curr;
+        $j = $j - 1;
+      }
     }
 }
-
-$sortedArray = sortArray($resultsArray);
-
-echo print_r($sortedArray);
+echo print_r($resultsArray);
+insertionSort($resultsArray, count($resultsArray));
+echo print_r($resultsArray);
 
 
 ?>
