@@ -24,6 +24,8 @@ foreach($studentsInClass as $student) {
     $percentage = ($assignmentResult['QuestionsCorrect']/$assignmentResult['QuestionsAnswered'])*100;
     array_push($resultsArray, array($student['Username'], $percentage, $student['StudentID']));
     if(!is_nan($percentage)){
+        echo $percentage;
+        echo $average;
         $average = $average + $percentage;
         $students++;
     }
@@ -50,8 +52,6 @@ insertionSort($resultsArray, count($resultsArray));
     <div class="card-body">
         <h5 class="card-title">Average Percentage</h5>
         <h6 class="card-subtitle mb-2 text-muted"><?php echo $percentage; ?></h6>
-    </div>
-    <div class="card-body">
         <h5 class="card-title">Total Students Completed</h5>
         <h6 class="card-subtitle mb-2 text-muted"><?php echo $students; ?></h6>
     </div>
