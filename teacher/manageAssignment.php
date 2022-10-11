@@ -15,12 +15,19 @@ $assignmentDetails = $connection->getAssignmentByID($assignmentID)->fetch_assoc(
 $studentsInClass = $connection->getStudentsByID($assignmentDetails['ClassID']);
 $resultsArray = array();
 
+$average = 0;
+$students = 0;
+
 //Add a username and percentage score to an array that can be sorted
 foreach($studentsInClass as $student) {
     $assignmentResult = $connection->getAssignmentResult($assignmentID, $student['StudentID'])->fetch_assoc();
     $percentage = ($assignmentResult['QuestionsCorrect']/$assignmentResult['QuestionsAnswered'])*100;
     array_push($resultsArray, array($student['Username'], $percentage, $student['StudentID']));
+    $average = $average + $percentage;
+    $students++;
 }
+
+$average = $average/$students;
 
 function insertionSort(&$array, $n) {
     for($i=0; $i<$n; $i++) {
@@ -34,11 +41,15 @@ function insertionSort(&$array, $n) {
     }
 }
 insertionSort($resultsArray, count($resultsArray));
-echo print_r($resultsArray);
-
 
 ?>
 <div class="m-1 row justify-content-center">
+    <div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Average Percentage</h5>
+        <h6 class="card-subtitle mb-2 text-muted"><?php echo $percentage; ?></h6>
+    </div>
+    </div>
     <div class="col-lg-8">
         <div class="p-4 m-2 card">
         <table class="table">
