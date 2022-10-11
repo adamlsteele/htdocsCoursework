@@ -26,7 +26,7 @@ function insertionSort(&$array, $n) {
     for($i=0; $i<$n; $i++) {
       $j = $i - 1;
       while($j >= 0 && $array[$i][1] > $array[$j][1]) {
-        $temp = $array[$j + 1]
+        $temp = $array[$j + 1];
         $array[$j + 1] = $array[$j];
         $array[$j] = $temp;
         $j = $j - 1;
