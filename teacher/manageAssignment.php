@@ -51,21 +51,25 @@ insertionSort($resultsArray, count($resultsArray));
 
 ?>
 <div class="m-1 row justify-content-center">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Average Percentage</h5>
-            <h6 class="card-subtitle mb-2 text-muted"><?php echo $percentage; ?>%</h6>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Total Students Completed</h5>
-            <h6 class="card-subtitle mb-2 text-muted"><?php echo $students; ?></h6>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Total Questions Answered</h5>
-            <h6 class="card-subtitle mb-2 text-muted"><?php echo $totalQuestions; ?></h6>
-        </div>
-    </div>
     <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Average Percentage</h5>
+                <h6 class="card-subtitle mb-2 text-muted"><?php echo $percentage; ?>%</h6>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Total Students Completed</h5>
+                <h6 class="card-subtitle mb-2 text-muted"><?php echo $students; ?></h6>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Total Questions Answered</h5>
+                <h6 class="card-subtitle mb-2 text-muted"><?php echo $totalQuestions; ?></h6>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Total Questions Correct</h5>
+                <h6 class="card-subtitle mb-2 text-muted"><?php echo $totalQuestionsCorrect; ?></h6>
+            </div>
+        </div>
         <div class="p-4 m-2 card">
         <table class="table">
                 <thead>
