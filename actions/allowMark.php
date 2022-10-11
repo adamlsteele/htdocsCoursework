@@ -38,13 +38,13 @@ $modifiedAnswer = "MODIF".$answer;
 $connection = new Connection;
 
 //Change the answer so that it is the $modifiedAnswer and increment the marks for that particular result
-$connection->query("UPDATE Result
-SET ".$colName." = '".$modifiedAnswer."' 
-WHERE ResultID = ".$resultID);
+$connection->query("UPDATE `result`
+SET `".$colName."` = '".$modifiedAnswer."' 
+WHERE `ResultID` = ".$resultID);
 
-$connection->query("UPDATE Result
-SET QuestionsCorrect = QuestionsCorrect + 1
-WHERE ResultID = ".$resultID);
+$connection->query("UPDATE `result`
+SET `QuestionsCorrec`t = `QuestionsCorrect` + 1
+WHERE `ResultID` = ".$resultID);
 
 //Redirect back to the manage assignment place
 header("Location:/teacher/manageAssignment.php?id=".$_GET['ret']);
