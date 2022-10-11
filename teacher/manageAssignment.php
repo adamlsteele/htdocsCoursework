@@ -19,7 +19,7 @@ $resultsArray = array();
 foreach($studentsInClass as $student) {
     $assignmentResult = $connection->getAssignmentResult($assignmentID, $student['StudentID'])->fetch_assoc();
     $percentage = ($assignmentResult['QuestionsCorrect']/$assignmentResult['QuestionsAnswered'])*100;
-    array_push($resultsArray, array($student['Username'], $percentage));
+    array_push($resultsArray, array($student['Username'], $percentage, $student['StudentID']));
 }
 
 function insertionSort(&$array, $n) {
@@ -52,17 +52,16 @@ echo print_r($resultsArray);
                 <tbody id="assignmentTable">
                     <button class="btn btn-sm btn-primary" id="filterCompleted" onClick="filterCompleted()">Hide uncompleted</button>
                     <?php
-                    foreach($studentsInClass as $student) {
+                    foreach($resultsArray as $student) {
                         echo '<tr><td>';
-                        echo $student['Username'];
+                        echo $student[0];
                         echo '</td><td>';
-                        $assignmentResult = $connection->getAssignmentResult($assignmentID, $student['StudentID'])->fetch_assoc();
-                        if($assignmentResult['QuestionsCorrect'] === null) {
+                        if($student[1] === null) {
                             echo '<p class="badge badge-danger">Not attempted</p>';
                         }else {
-                            echo ($assignmentResult['QuestionsCorrect']/$assignmentResult['QuestionsAnswered'])*100 . "%";
+                            echo $student[1];
                             echo '</td><td>';
-                            echo '<button class="btn btn-sm btn-primary" onclick="editScoreLoad('.$student['StudentID'].', '.$assignmentID.')" data-mdb-toggle="modal" data-mdb-target="#changeScore">View Answers</a>';
+                            echo '<button class="btn btn-sm btn-primary" onclick="editScoreLoad('.$student[2].', '.$assignmentID.')" data-mdb-toggle="modal" data-mdb-target="#changeScore">View Answers</a>';
                         }
                         echo '</td></tr>';
                     }
