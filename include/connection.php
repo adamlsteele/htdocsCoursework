@@ -50,7 +50,7 @@ class Connection {
     //Create an account of a specific type using the specified parameters
     public function createAccount($email, $username, $password, $accountType) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO `".$accountType."`(Email, Username, Password) VALUES('".$email."', '".$email."', '".$hashedPassword."')";
+        $query = "INSERT INTO `".$accountType."`(Email, Username, Password) VALUES('".$email."', '".$username."', '".$hashedPassword."')";
 
         $this->connection->query($query);
 
