@@ -18,7 +18,7 @@ $date = new DateTime();
 //Fetch the current date in the Y-m-d format and compare it to the entered date
 $currentDate = $date->format('Y-m-d');
 echo $currentDate;
-echo $date-format('Y-m-d');
+echo $dueDate;
 if($currentDate >= $dueDate) {
     header("Location: /teacher?error=Due date cannot be less than the current date");
 }
