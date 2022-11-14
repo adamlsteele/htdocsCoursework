@@ -29,4 +29,4 @@ $connection = new Connection;
 $result = $connection->createAssignment($class, $topic, $dueDate);
 
 //Redirect back to the manage class page
-//header("Location: /teacher/manageClass.php?id=".$class);
+header("Location: /teacher/manageClass.php?id=".$class);
