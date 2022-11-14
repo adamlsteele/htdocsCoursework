@@ -17,6 +17,8 @@ if($_SERVER['REQUEST_METHOD'] != "POST") {
 $date = new DateTime();
 //Fetch the current date in the Y-m-d format and compare it to the entered date
 $currentDate = $date->format('Y-m-d');
+echo $currentDate;
+echo $date-format('Y-m-d');
 if($currentDate >= $dueDate) {
     header("Location: /teacher?error=Due date cannot be less than the current date");
 }
@@ -27,4 +29,4 @@ $connection = new Connection;
 $result = $connection->createAssignment($class, $topic, $dueDate);
 
 //Redirect back to the manage class page
-header("Location: /teacher/manageClass.php?id=".$class);
+//header("Location: /teacher/manageClass.php?id=".$class);
