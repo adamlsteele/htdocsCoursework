@@ -14,10 +14,6 @@ if($_SERVER['REQUEST_METHOD'] != "POST") {
     $confirmPassword = $_POST['confirmPassword'];
 }
 
-echo $password;
-echo $confirmPassword;
-echo $password <> $confirmPassword;
-
 //Validation for entered passwords
 if($password <> $confirmPassword) {
     header("Location: /register.php?error=Passwords entered do not match");
