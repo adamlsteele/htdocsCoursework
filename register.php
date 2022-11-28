@@ -32,11 +32,11 @@ if(isset($_SESSION['accountType'])) {
                         <label class="form-label" for="email">Email</label>
                     </div>
                     <div class="form-outline">
-                        <input class="form-control mb-2" id="password" type="password" name="password" maxlength=32 required />
+                        <input class="form-control mb-2" id="password" type="password" name="password" maxlength=32 minlength=8 required />
                         <label class="form-label" for="password">Password</label>
                     </div>
                     <div class="form-outline">
-                        <input class="form-control mb-4" id="confirmPassword" type="password" name="confirmPassword" maxlength=32 required />
+                        <input class="form-control mb-4" id="confirmPassword" type="password" name="confirmPassword" maxlength=32 minlength=8 required />
                         <label class="form-label" for="confirmPassword">Confirm Password</label>
                     </div>
                     <p>Select account type</p>
