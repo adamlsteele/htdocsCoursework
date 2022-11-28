@@ -14,6 +14,10 @@ if($_SERVER['REQUEST_METHOD'] != "POST") {
     $confirmPassword = $_POST['confirmPassword'];
 }
 
+echo $password;
+echo $confirmPassword;
+echo $password <> $confirmPassword;
+
 //Validation for entered passwords
 if($password <> $confirmPassword) {
     header("Location: /register.php?error=Passwords entered do not match");
@@ -29,7 +33,7 @@ $dbResult = $connection->getUserByEmail($email, $accountType);
 //Validation that occurs if an account with the entered email already exists
 if($dbResult->num_rows === 0) {
     $dbResult = $connection->createAccount($email, $username, $password, $accountType);
-    header("Location: /?success=Account created, please login");
+    //header("Location: /?success=Account created, please login");
 }else {
-    header("Location: /register.php?error=An account with that email already exists");
+    //header("Location: /register.php?error=An account with that email already exists");
 }
