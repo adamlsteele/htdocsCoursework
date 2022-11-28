@@ -124,7 +124,7 @@ class Connection {
     }
     //Fetch the recently completed topics for a student
     public function getRecentTopics($id) {
-        $this->query = "SELECT * FROM result INNER JOIN topic ON result.TopicID = topic.TopicID WHERE StudentID = ".$id." ORDER BY DateCompleted ASC LIMIT 2";
+        $this->query = "SELECT * FROM result INNER JOIN topic ON result.TopicID = topic.TopicID WHERE StudentID = ".$id." ORDER BY DateCompleted DESC LIMIT 10";
         return $this->connection->query($this->query);
     }
 
