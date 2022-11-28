@@ -17,6 +17,8 @@ if(isset($_SESSION['accountType'])) {
                 <h3 class="text-center">Cloud Coding</h3>
                 <h5 class="text-center">Sign In</h5>
 
+                <?php if(isset($_GET['success']) { echo "<p class='alert alert-success'>".$_GET['success']."</p>";})?>
+
                 <!-- Account Type Selector -->
                 <ul class="nav nav-pills justify-content-center">
                     <li class="nav-item text-center">

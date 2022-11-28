@@ -29,7 +29,7 @@ $dbResult = $connection->getUserByEmail($email, $accountType);
 //Validation that occurs if an account with the entered email already exists
 if($dbResult->num_rows === 0) {
     $dbResult = $connection->createAccount($email, $username, $password, $accountType);
-    header("Location: /");
+    header("Location: /?success=Account created, please login");
 }else {
     header("Location: /register.php?error=An account with that email already exists");
 }
