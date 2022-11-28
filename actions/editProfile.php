@@ -45,4 +45,4 @@ if(!password_verify($password, $currentUserDetails['Password'])) {
 }
 
 //Redirect back to the profile page
-header("Location:/".$_SESSION['accountType']."/profile.php");
+header("Location:/".$_SESSION['accountType']."/profile.php?success=Changes have been made");

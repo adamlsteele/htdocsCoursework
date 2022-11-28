@@ -18,6 +18,10 @@ $userDetails = $connection->getUserByID($_SESSION['accountID'], 'teacher')->fetc
         if(isset($_GET['error'])) {
             echo '<p class="alert alert-danger">'.$_GET['error'].'</p>';
         }
+        if(isset($_GET['success'])) {
+            //Display error validation if an error occurs
+            echo '<p class="alert alert-danger">'.$_GET['success'].'</p>';
+        }
         ?>
         <div class="p-4 m-2 card">
             <h3>Edit Profile</h3>
