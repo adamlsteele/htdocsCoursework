@@ -20,7 +20,7 @@ $currentDate = $date->format('Y-m-d');
 echo $currentDate;
 echo $dueDate;
 if($currentDate >= $dueDate) {
-    //header("Location: /teacher?error=Due date cannot be less than the current date");
+    header("Location: /teacher?error=Due date cannot be less than the current date");
 }
 
 //Intiailise a new connection class
@@ -29,4 +29,4 @@ $connection = new Connection;
 $result = $connection->createAssignment($class, $topic, $dueDate);
 
 //Redirect back to the manage class page
-//header("Location: /teacher/manageClass.php?id=".$class);
+header("Location: /teacher/manageClass.php?id=".$class);
