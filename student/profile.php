@@ -41,12 +41,12 @@ $userDetails = $connection->getUserByID($_SESSION['accountID'], 'student')->fetc
                 </div>
                 <div class="form-outline mb-2">
                     <!-- Password Field To Enter New Password -->
-                    <input class="form-control" id="newPassword" maxlength=32 type="password" name="newPassword" value=""/>
+                    <input class="form-control" id="newPassword" maxlength=32 type="password" name="newPassword" minlength=8 value=""/>
                     <label class="form-label" for="newPassword" >New Password</label>
                 </div>
                 <div class="form-outline mt-2 mb-4">
                     <!-- Password Verification -->
-                    <input class="form-control" id="confirmNewPassword" maxlength=32 type="password" name="confirmNewPassword" value=""/>
+                    <input class="form-control" id="confirmNewPassword" maxlength=32 type="password" name="confirmNewPassword" minlength=8 value=""/>
                     <label class="form-label" for="confirmNewPassword" >Confirm New Password</label>
                 </div>
                 <div class="form-outline mt-2 mb-4">

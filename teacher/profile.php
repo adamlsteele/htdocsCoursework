@@ -36,11 +36,11 @@ $userDetails = $connection->getUserByID($_SESSION['accountID'], 'teacher')->fetc
                     <label class="form-label" for="username" >Username</label>
                 </div>
                 <div class="form-outline mb-2">
-                    <input class="form-control" id="newPassword" maxlength=32 type="password" name="newPassword" value=""/>
+                    <input class="form-control" id="newPassword" maxlength=32 type="password" name="newPassword" minlength=8 value=""/>
                     <label class="form-label" for="newPassword" >New Password</label>
                 </div>
                 <div class="form-outline mt-2 mb-4">
-                    <input class="form-control" id="confirmNewPassword" maxlength=32 type="password" name="confirmNewPassword" value=""/>
+                    <input class="form-control" id="confirmNewPassword" maxlength=32 type="password" name="confirmNewPassword" minlength=8 value=""/>
                     <label class="form-label" for="confirmNewPassword" >Confirm New Password</label>
                 </div>
                 <div class="form-outline mt-2 mb-4">
