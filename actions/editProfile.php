@@ -37,6 +37,8 @@ if(!password_verify($password, $currentUserDetails['Password'])) {
             $query = "UPDATE ".$_SESSION['accountType']."
             SET Password = '".$hashedPassword."'
             WHERE ".$_SESSION['accountType']."ID = ".$id;
+            header("Location:/".$_SESSION['accountType']."/profile.php?success=Password has been updated");
+            die();
         }else{
             header("Location:/".$_SESSION['accountType']."/profile.php?error=The two new passwords you entered do not match");
             die();
@@ -45,4 +47,4 @@ if(!password_verify($password, $currentUserDetails['Password'])) {
 }
 
 //Redirect back to the profile page
-header("Location:/".$_SESSION['accountType']."/profile.php?success=Changes have been made");
+header("Location:/".$_SESSION['accountType']."/profile.php?success=Username has been updated");
