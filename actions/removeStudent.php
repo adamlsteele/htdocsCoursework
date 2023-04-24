@@ -14,5 +14,5 @@ $connection = new Connection;
 $connection->query($query);
 
 //Redirect back to the manage class page
-header("Location:/teacher/manageClass.php?id=".$_GET['ret']);
+//header("Location:/teacher/manageClass.php?id=".$_GET['ret']);
 ?>
