@@ -26,7 +26,11 @@ class Connection {
 
     //General query function that allows for a custom query to be passed through rather than a pre-defined one
     public function query(string $query) {
-        return $this->connection->query($query);
+        $result = $this->connection->query($query);
+        if (!$result) {
+            die('Error: ' . mysqli_error($this->connection));
+        }
+        return $result;
     }
 
     //#### User Related Queries ####
