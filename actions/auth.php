@@ -32,7 +32,7 @@ if($dbResult->num_rows != 0) {
         header("Location: /");
     }else {
         //Verification that redirects if the incorrect password was entered
-        header("Location: /?error=Invalid details");
+        header("Location: /?error=Invalid details&email=".$email);
     }
 }else {
     //Verification that redirects if the account does not exist

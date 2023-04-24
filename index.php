@@ -42,7 +42,9 @@ if(isset($_SESSION['accountType'])) {
                         <form action="actions/auth.php?type=student" method="post">
                             <h5 class="mt-4">Student</h5>
                             <div class="form-outline mb-4">
-                                <input class="form-control" id="email" maxlength=64 required type="email" name="email"/>
+                                <input class="form-control" value="<?php if (isset($_GET['email'])) {
+                                    echo $_GET['email'];
+                                } ?>" id="email" maxlength=64 required type="email" name="email"/>
                                 <label class="form-label" for="email" >Email</label>
                             </div>
                             <div class="form-outline mb-4">
@@ -58,7 +60,9 @@ if(isset($_SESSION['accountType'])) {
                         <form action="actions/auth.php?type=teacher" method="post">
                             <h5 class="mt-4">Teacher</h5>
                             <div class="form-outline mb-4">
-                                <input class="form-control" id="email" maxlength=64 required type="email" name="email"/>
+                                <input class="form-control" id="email" value="<?php if (isset($_GET['email'])) {
+                                    echo $_GET['email'];
+                                } ?>" maxlength=64 required type="email" name="email"/>
                                 <label class="form-label" for="email" >Email</label>
                             </div>
                             <div class="form-outline mb-4">
