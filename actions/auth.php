@@ -53,7 +53,8 @@ if($accountType === "student") {
             $_SESSION['accountID'] = $account['StudentID'];
             header("Location: /student");
         }else {
-            header("Location: /?error=Invalid details");
+            //Verification that redirects if the incorrect password was entered
+            header("Location: /?error=Invalid details&email=".$email);
         }
     }else {
         header("Location: /?error=Account does not exist");
