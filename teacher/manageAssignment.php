@@ -39,9 +39,14 @@ foreach($studentsInClass as $student) {
 
 $average = ($totalQuestions / $totalQuestionsCorrect)*100;
 
+//Insertion sort to sort the results
+
 function insertionSort(&$array, $n) {
+    //N is the length of the array. Increment until the end of the array.
+    //This specific algorithm is sorting the 1st index of the results array (the percentage and not the student name)
     for($i=0; $i<$n; $i++) {
       $j = $i - 1;
+      //Second while loop determines the place to place the currently selected index in the newer sorted partition of the array
       while($j >= 0 && $array[$i][1] > $array[$j][1]) {
         $temp = $array[$j + 1];
         $array[$j + 1] = $array[$j];
@@ -50,6 +55,8 @@ function insertionSort(&$array, $n) {
       }
     }
 }
+
+//Call the insertion sort function
 insertionSort($resultsArray, count($resultsArray));
 
 ?>
@@ -137,24 +144,29 @@ require("include/footer.php");
 <script>
 var toggle = "show";
 
+//Filter that will toggle between showing scores of students that have and have not completed the assignment
 function filterCompleted() {
     var table = document.getElementById("assignmentTable");
     var row = table.getElementsByTagName("tr");
     var button = document.getElementById("filterCompleted");
     if(toggle == "show") {
         toggle = "hide";
+        //Hiding the scores of students where the percentage is equal to "not attempted"
         for(var index = 0; index <= row.length-1; index++) {
             row[index].style.display = "none";
             var tableData = row[index].getElementsByTagName("td")[1];
             if(tableData.innerText.indexOf("Not attempted") > -1) {
+                //Setting the style of a HTML element to none, hides it from view. In this case we are hiding it from the table of results.
                 row[index].style.display = "none";
             }else {
+                //Do not hide the element if completed.
                 row[index].style.display = "";
             }
         }
         button.innerText = "Show uncompleted";
     }else {
         toggle = "show"
+        //Show all items, ensure all items do not have the styling restriction
         for(var index = 0; index <= row.length-1; index++) {
             row[index].style.display = "";
         }
