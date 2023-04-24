@@ -101,6 +101,7 @@ insertionSort($resultsArray, count($resultsArray));
                 </thead>
                 <tbody id="assignmentTable">
                     <button class="btn btn-sm btn-primary" id="filterCompleted" onClick="filterCompleted()">Hide uncompleted</button>
+                    <p>To make a change to a user's score click 'view answers'. From here you will be able to allow additional marks if necessary.</p>
                     <?php
                     foreach($resultsArray as $student) {
                         echo '<tr><td>';
