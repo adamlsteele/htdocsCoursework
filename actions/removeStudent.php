@@ -11,7 +11,11 @@ SET ClassID = null
 WHERE StudentID = ".$_GET['id'];
 
 $connection = new Connection;
-$connection->query($query);
+$result = $connection->query($query);
+
+if(!$result) {
+    echo "Error: " . mysqli_error($connection);
+}
 
 //Redirect back to the manage class page
 //header("Location:/teacher/manageClass.php?id=".$_GET['ret']);
